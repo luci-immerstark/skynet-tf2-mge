@@ -74,7 +74,7 @@ PT = {
     "MenuTitle": "Entrar numa arena...",
     "MenuRemove": "Sair da fila",
     "HPLeft": "{green}[MGE]{default} Seu adversário ficou com {green}{1}{default} de vida.",
-    "Adv": "{olive}Para entrar numa arena, digite {default}!add\\n{olive}Para ver todos os comandos, digite {default}!mgehelp",
+    "Adv": "{green}[MGE]{default} Para entrar numa arena, digite {gold}!add\\n{green}[MGE]{default} Para ver todos os comandos, digite {gold}!mgehelp",
     "JoinsArena": "{lightgreen}{1} ({2}) {default}entrou na arena {green}{3}.",
     "JoinsArenaNoStats": "{lightgreen}{1} {default}entrou na arena {green}{2}.",
     "ChoseArena": "Você escolheu a arena {green}{1}.",
