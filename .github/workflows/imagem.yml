@@ -49,11 +49,17 @@ jobs:
       - name: Montar
         env:
           BASE_REF: ${{ steps.base.outputs.ref }}
+        # se a montagem falhar, as ultimas linhas dela viram um aviso no resumo da execucao
         run: |
-          docker build --build-arg BASE="$BASE_REF" \
+          set -o pipefail
+          if docker build --progress=plain --build-arg BASE="$BASE_REF" \
             --label org.opencontainers.image.revision="$GITHUB_SHA" \
             --label org.opencontainers.image.base.name="$BASE_REF" \
-            -t teste:ci .
+            -t teste:ci . 2>&1 | tee build.log; then exit 0; fi
+          aviso() { awk -v t="$1" '{ gsub(/%/, "%25"); gsub(/\r/, ""); m = m (NR > 1 ? "%0A" : "") $0 } END { print "::error title=" t "::" m }'; }
+          grep -E 'ERROR|error|rror:' build.log | tail -n 25 | aviso "Montagem: erros"
+          tail -n 40 build.log | aviso "Montagem: fim do log"
+          exit 1
 
       - name: Testes
         # cada ERRO dos testes (com as linhas de detalhe logo abaixo dele) vira um aviso no resumo da execucao,
