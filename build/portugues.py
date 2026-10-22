@@ -11,6 +11,12 @@ s, n = tirar.subn("{} // SKYNET: mensagem removida", s)
 if n != 13:
     sys.exit("ERRO: esperava 13 mensagens para remover, achei %d" % n)
 
+# o lembrete "digite !add" (para quem esta fora das arenas) passa de 15 segundos para 3 minutos e meio
+ADV = "CreateTimer(15.0, Timer_ShowAdv, userid);"
+if s.count(ADV) != 1:
+    sys.exit("ERRO: lembrete do !add achado %d vezes, esperava 1" % s.count(ADV))
+s = s.replace(ADV, "CreateTimer(210.0, Timer_ShowAdv, userid); // SKYNET: era a cada 15 s")
+
 # ---------------------------------------------------------------- 2. textos fixos do plugin em portugues
 TEXTOS = [
     ('"[MGEMod] Plugin reloaded. Slaying all players to avoid bugs."', '"[MGE] Plugin recarregado. Todos os jogadores foram mortos para evitar bugs."', 1),

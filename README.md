@@ -28,7 +28,7 @@ Todos os arquivos do MGEMod e o mapa são baixados em versão fixa e **conferido
 
 O código original é baixado e recebe duas mudanças antes de compilar (veja a pasta [`build/`](build/)):
 
-1. **Mensagens em português.** O chat, os menus e a ajuda (`!mgehelp`) ficam em português do Brasil. Saem do chat as mensagens de resultado de cada duelo ("X venceu Y"), de boas-vindas e de vida restante do adversário, que poluem o chat com o servidor cheio.
+1. **Mensagens em português.** O chat, os menus e a ajuda (`!mgehelp`) ficam em português do Brasil. Saem do chat as mensagens de resultado de cada duelo ("X venceu Y"), de boas-vindas e de vida restante do adversário, que poluem o chat com o servidor cheio. O lembrete "digite !add", para quem está fora das arenas, aparece a cada 3 minutos e meio (no original, a cada 15 segundos).
 2. **Duelos no log do jogo.** Cada vitória e derrota vira uma linha `"Jogador<id><[U:1:...]><time>" triggered "mge_win"` (ou `"mge_loss"`) no log do servidor. Rankings como o HLstatsX:CE ou HLstatsZ podem pontuar os duelos a partir delas (veja [Ranking externo](#ranking-externo-opcional)).
 
 ## Requisitos
@@ -227,7 +227,7 @@ A ready-to-run **TF2 MGE** (1v1/2v2 training) server image: [MGEMod](https://git
 
 - **64-bit** TF2 server (`srcds_linux64`); the image is **x86-64 (amd64) only**.
 - MGEMod and the map are pinned and **verified by sha256** at build time, and MGEMod is compiled from source with the base image's SourceMod compiler.
-- Chat messages are in **Brazilian Portuguese**, without per-duel result, welcome and remaining-HP messages. Each duel win/loss is logged as `triggered "mge_win"` / `"mge_loss"`, for HLstatsX:CE/HLstatsZ rankings.
+- Chat messages are in **Brazilian Portuguese**, without per-duel result, welcome and remaining-HP messages, and the "type !add" reminder shows every 3.5 minutes instead of every 15 seconds. Each duel win/loss is logged as `triggered "mge_win"` / `"mge_loss"`, for HLstatsX:CE/HLstatsZ rankings.
 
 ```bash
 docker volume create mge-dados
