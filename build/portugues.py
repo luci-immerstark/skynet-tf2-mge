@@ -11,11 +11,11 @@ s, n = tirar.subn("{} // SKYNET: mensagem removida", s)
 if n != 13:
     sys.exit("ERRO: esperava 13 mensagens para remover, achei %d" % n)
 
-# o lembrete "digite !add" (para quem esta fora das arenas) passa de 15 segundos para 3 minutos e meio
-ADV = "CreateTimer(15.0, Timer_ShowAdv, userid);"
+# o lembrete "digite !add / !mgehelp", repetido a cada 15 segundos para quem esta fora das arenas, sai por completo
+ADV = "CreateTimer(5.0, Timer_ShowAdv, GetClientUserId(client));"
 if s.count(ADV) != 1:
     sys.exit("ERRO: lembrete do !add achado %d vezes, esperava 1" % s.count(ADV))
-s = s.replace(ADV, "CreateTimer(210.0, Timer_ShowAdv, userid); // SKYNET: era a cada 15 s")
+s = s.replace(ADV, "// SKYNET: lembrete do !add e do !mgehelp removido")
 
 # ---------------------------------------------------------------- 2. textos fixos do plugin em portugues
 TEXTOS = [
