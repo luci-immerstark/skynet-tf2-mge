@@ -29,13 +29,14 @@ COPY build/ /build/
 RUN set -eu; \
     python3 -I /build/duelos_no_log.py /fontes/mge.sp; \
     python3 -I /build/portugues.py /fontes/mge.sp /fontes/mgemod.phrases.original.txt /fontes/mgemod.phrases.txt; \
-    test "$(head -c 4 /fontes/mge_training_v8_beta4b.bsp)" = "VBSP"
+    test "$(head -c 4 /fontes/mge_training_v8_beta4b.bsp)" = "VBSP"; \
+    chmod -R u=rwX,go=rX /fontes   # o ADD de um link grava os arquivos so para o root (600)
 
 # ---------- 2. compila o MGEMod com o compilador do proprio SourceMod da imagem base ----------
 FROM ${BASE} AS compilar
 ARG SC=/home/tf2/server/tf/addons/sourcemod/scripting
-COPY --from=fontes /fontes/mge.sp /tmp/mge/mge.sp
-COPY --from=fontes /fontes/include/ /tmp/mge/include/
+COPY --from=fontes --chown=tf2:tf2 /fontes/mge.sp /tmp/mge/mge.sp
+COPY --from=fontes --chown=tf2:tf2 /fontes/include/ /tmp/mge/include/
 RUN set -eu; \
     "${SC}/spcomp64" /tmp/mge/mge.sp -i/tmp/mge/include -o/tmp/mge.smx; \
     test -s /tmp/mge.smx
